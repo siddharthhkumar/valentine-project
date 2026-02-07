@@ -1,100 +1,33 @@
-/* Reset default styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+const yesBtn = document.getElementById("yes-btn");
+const noBtn = document.getElementById("no-btn");
+const askContainer = document.getElementById("ask-container");
+const successContainer = document.getElementById("success-container");
+
+// Logic: Move the "No" button randomly
+function moveButton() {
+    // Get the window size
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    // Calculate a random new position
+    // keeping it within a safe area so it doesn't go completely off-screen
+    const newX = Math.random() * (width - 150); 
+    const newY = Math.random() * (height - 100);
+
+    // Apply the new position
+    // We force absolute position NOW, so it can float freely
+    noBtn.style.position = "absolute"; 
+    noBtn.style.left = newX + "px";
+    noBtn.style.top = newY + "px";
 }
 
-body {
-    font-family: 'Nunito', sans-serif;
-    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden; 
-}
+// Event Listeners for Moving the Button
+noBtn.addEventListener("mouseover", moveButton); // For Desktop mouse hover
+noBtn.addEventListener("touchstart", moveButton); // For Mobile touch
+noBtn.addEventListener("click", moveButton); // Fallback
 
-.container {
-    text-align: center;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 3rem;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    max-width: 400px;
-    width: 90%;
-}
-
-.gif {
-    width: 150px;
-    height: auto;
-    margin-bottom: 1rem;
-}
-
-h1 {
-    color: #ff4d6d;
-    margin-bottom: 1.5rem;
-    font-size: 2rem;
-}
-
-p {
-    color: #555;
-    font-size: 1.2rem;
-    margin-top: 10px;
-}
-
-/* BUTTON CONTAINER STYLES */
-.buttons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px; /* Space between buttons */
-    flex-wrap: wrap; /* Allows buttons to stack on very small screens */
-    position: relative;
-    z-index: 10;
-}
-
-button {
-    padding: 12px 24px;
-    font-size: 1.2rem;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-family: 'Nunito', sans-serif;
-    font-weight: bold;
-}
-
-#yes-btn {
-    background-color: #ff4d6d;
-    color: white;
-    box-shadow: 0 4px 10px rgba(255, 77, 109, 0.3);
-}
-
-#yes-btn:hover {
-    background-color: #ff2a52;
-    transform: scale(1.1);
-}
-
-#no-btn {
-    background-color: #e0e0e0;
-    color: #333;
-    /* Removed 'position: absolute' so it sits normally at first */
-}
-
-.hidden {
-    display: none;
-}
-
-/* FOOTER STYLE */
-.footer {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    color: #ff4d6d;
-    font-family: 'Nunito', sans-serif;
-    font-size: 1rem;
-    font-weight: bold;
-    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
-    z-index: 100;
-}
+// Logic: Show celebration when "Yes" is clicked
+yesBtn.addEventListener("click", () => {
+    askContainer.classList.add("hidden");
+    successContainer.classList.remove("hidden");
+});
